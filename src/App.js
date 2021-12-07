@@ -8,6 +8,7 @@ function App() {
   const [searchValue, setSearchValue] = useState();
   const [selectedMovie, setselectedMovie] = useState();
   const [favorite, setfavorite] = useState([]);
+  const [isPending, setisPending] = useState(true);
 
   const random_url = [
     'http://www.omdbapi.com/?t=game+of+thrones&apikey=4c04f3d8',
@@ -32,6 +33,7 @@ function App() {
       const responseJSON = await response.json();
       if(responseJSON.Search){
         setmovies(responseJSON.Search);
+        setisPending(false);
         return;
       }
     }
@@ -45,6 +47,7 @@ function App() {
           temp_movies.push(responseJSON);
         }
       setmovies(temp_movies);
+      setisPending(false);
       return;
     }
   }
@@ -61,10 +64,20 @@ function App() {
     }
   }
 
-  const HandleClick_favorite = function(movie){
-    console.log('adding to favorite');
-    const newFavorites = [...favorite, movie];
-    setfavorite(newFavorites);
+  const HandleClick_favorite = function(movie, req){
+    if(req==='add'){
+      console.log('adding to favorite');
+      if( !favorite.find((val)=>{return val['imdbID']===movie['imdbID'];})){
+        const newFavorites = [...favorite, movie];
+        setfavorite(newFavorites);
+      }
+    }
+    else if(req==='del'){
+      // console.log('delete');
+      const newFavorites = favorite.filter((val)=>val['imdbID']!==movie['imdbID'])
+      setfavorite(newFavorites);
+    }
+    
   }
 
   useEffect(
@@ -75,9 +88,9 @@ function App() {
     <div className="App">
       <div className={selectedMovie?"main-page-side-panel":"main-page"}>
         <Navbar searchValue={searchValue} setSearchValue={setSearchValue} />
-        {Movies && <MovieList movies={Movies} favorite={favorite} HandleClick_favorite={HandleClick_favorite} HandleClick_MovieList={HandleClick_MovieList} />}
+        {Movies && <MovieList isPending={isPending} movies={Movies} favorite={favorite} HandleClick_favorite={HandleClick_favorite} HandleClick_MovieList={HandleClick_MovieList} />}
         <br/>
-        {favorite && <MovieList movies={favorite} favorite={favorite} HandleClick_favorite={HandleClick_favorite} HandleClick_MovieList={HandleClick_MovieList} />  }
+        {favorite && <MovieList isPending={isPending} heading={"Favorites"} movies={favorite} favorite={favorite} HandleClick_favorite={HandleClick_favorite} HandleClick_MovieList={HandleClick_MovieList} />  }
     
       </div>
     

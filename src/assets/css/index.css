@@ -14,6 +14,10 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+.not-visible{
+  /* visibility: hidden; */
+  display: none;
+}
 
 /* width */
 ::-webkit-scrollbar {
@@ -42,6 +46,36 @@ code {
   /* height: 7px; */
   background: rgba(146, 146, 146, 0.692);
 }
+.loading{
+  text-align: center;
+  margin: 0 43.6%;
+  font-size: 2rem;
+  font-weight: 100;
+}
+@keyframes spinner {
+  0% {
+    transform: translate3d(-50%, -50%, 0) rotate(0deg);
+  }
+  100% {
+    transform: translate3d(-50%, -50%, 0) rotate(360deg);
+  }
+}
+.loading-anim::before {
+  animation: 1.5s cubic-bezier(0.68, 0, 0.4, 1.01) infinite spinner;
+  animation-play-state: inherit;
+  border: solid 3px #cfd0d1;
+  border-bottom-color: #676767;
+  border-radius: 50%;
+  content: "";
+  height: 35px;
+  width: 35px;
+  position: absolute;
+  top: 41%;
+  left: 43%;
+  transform: translate3d(-50%, -50%, 0);
+  will-change: transform;
+}
+
 
 .App{
   display: flex;
@@ -207,11 +241,24 @@ code {
   margin: -130px 0 0;
   transition: all 0.2s ease-in-out 0s;
 }
-.favorite-icon:hover{
+.add-favorite:hover{
+  transition: 0.1s ease-in;
+}
+.add-favorite:hover{
   color: rgb(243, 187, 44);
 }
+.is-favorite{
+  color: rgb(240, 105, 105);  
+  transition: 0.2s ease-out;
+}
+.is-favorite:hover{
+  color: rgb(255, 55, 55);  
+  font-size: 1.3rem;
+  /* padding-bottom: 3px; */
+}
 .movie-element-text-box{
-  padding-bottom: 2rem;
+  text-align: center;
+  padding: 0 1rem 2rem;
   font-size: 1.2rem;
   font-weight: 700;
 }
