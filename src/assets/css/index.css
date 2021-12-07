@@ -6,7 +6,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 
-  background-image: url('./assets/images/cool-background.png');
+  background-image: url('../images/cool-background.png');
   color: aliceblue;
 }
 
@@ -17,8 +17,12 @@ code {
 
 /* width */
 ::-webkit-scrollbar {
-  height: 10px;
+  height: 3px;
   width: 10px;
+}
+::-webkit-scrollbar:hover {
+  height: 7px;
+  /* width: 10px; */
 }
 
 /* Track */
@@ -35,6 +39,7 @@ code {
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
+  /* height: 7px; */
   background: rgba(146, 146, 146, 0.692);
 }
 
@@ -52,6 +57,8 @@ code {
 }
 
 .side-panel{
+  position:sticky; 
+  top: 0;
   overflow-y: auto;
   height: 100vh;
   min-width: 320px;
@@ -112,7 +119,7 @@ code {
   justify-content: space-between;
   align-items: center;
   height: 56px;
-  padding: 0 16px;
+  padding: 20px 16px 0;
 }
 .search-box{
   display: flex;
@@ -155,6 +162,7 @@ code {
 
 
 .movie-list{
+  padding: 16px 0;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -164,17 +172,53 @@ code {
   overflow-x: auto;
 }
 .movie-element{
-  margin: 10px 5px 5px;
+  height: 420px;
+  width: 300px;
+  z-index: 1;
+  position: relative;
+  margin: 10px 10px 5px;
+  transition: all 0.2s ease-in-out 0s;
+}
+.movie-element:hover{
+  margin-bottom: 10px;
+  margin-top: 5px;
+  cursor: pointer;
 }
 .movie-element img{
-  height: 60vh;
-  max-height: 420px;
-  width: 30vw;
-  max-width: 300px;
-  min-width: 250px;
+  height: 420px;
+  width: 300px;
+}
+.movie-element:hover .movie-element-tag{
+  opacity: 1;
+}
+.movie-element-tag{
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  align-items: center;
+  justify-content: flex-end;
+  
+  opacity: 0;
+  width: 300px;
+  height: 126px;
+  background: rgb(0,0,0);
+  background: linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.7206232834930848) 43%, rgba(0,0,0,1) 100%);
+  position: absolute;
+  margin: -130px 0 0;
+  transition: all 0.2s ease-in-out 0s;
+}
+.favorite-icon:hover{
+  color: rgb(243, 187, 44);
+}
+.movie-element-text-box{
+  padding-bottom: 2rem;
+  font-size: 1.2rem;
+  font-weight: 700;
 }
 
 .move-panels{
+  z-index: 2;
+  position: relative;
   color: white;
   background-color: rgba(80, 80, 80, 0.432);
   min-width: 30px;
