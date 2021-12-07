@@ -4,7 +4,6 @@ const SearchBox = (props) => {
     const [search, setsearch] = useState('');
 
     const HandleClick = function(){
-        console.log('hello')
         props.setSearchValue(search);
     }
     return ( 

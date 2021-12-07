@@ -4,7 +4,7 @@ import Navbar from './components/Navbar';
 import MoviePanel from './components/MoviePanel';
 
 function App() {
-  const [Movies, setmovies] = useState();
+  const [Movies, setmovies] = useState([]);
   const [searchValue, setSearchValue] = useState('');
   const [selectedMovie, setselectedMovie] = useState();
 
