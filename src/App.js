@@ -5,10 +5,12 @@ import MoviePanel from './components/MoviePanel';
 
 function App() {
   const [Movies, setmovies] = useState([]);
-  const [searchValue, setSearchValue] = useState();
+  const [searchValue, setSearchValue] = useState('');
   const [selectedMovie, setselectedMovie] = useState();
   const [favorite, setfavorite] = useState([]);
   const [isPending, setisPending] = useState(true);
+  const [searchHistory, setsearchHistory] = useState([]);
+  
 
   const random_url = [
     'http://www.omdbapi.com/?t=game+of+thrones&apikey=4c04f3d8',
@@ -27,7 +29,7 @@ function App() {
   ];
 
   const getMovieRequest= async function(searchValue){
-    if(searchValue){
+    if(searchValue && searchValue!==''){
       const url = `http://www.omdbapi.com/?s=${searchValue}&apikey=4c04f3d8`;
       const response = await fetch(url);
       const responseJSON = await response.json();
@@ -60,6 +62,10 @@ function App() {
     // console.log(responseJSON);
     if(responseJSON){
         setselectedMovie(responseJSON);
+
+        if(!searchHistory.includes(responseJSON.Title)){
+          setsearchHistory([...searchHistory, responseJSON.Title]);
+        }
         return;
     }
   }
@@ -87,7 +93,12 @@ function App() {
   return (
     <div className="App">
       <div className={selectedMovie?"main-page-side-panel":"main-page"}>
-        <Navbar searchValue={searchValue} setSearchValue={setSearchValue} />
+        <Navbar
+          searchHistory={searchHistory}
+          setsearchHistory={setsearchHistory}
+          searchValue={searchValue}
+          setSearchValue={setSearchValue}
+        />
         {Movies && <MovieList isPending={isPending} movies={Movies} favorite={favorite} HandleClick_favorite={HandleClick_favorite} HandleClick_MovieList={HandleClick_MovieList} />}
         <br/>
         {favorite && <MovieList isPending={isPending} heading={"Favorites"} movies={favorite} favorite={favorite} HandleClick_favorite={HandleClick_favorite} HandleClick_MovieList={HandleClick_MovieList} />  }
