@@ -50,9 +50,9 @@ const SearchBox = (props) => {
                         sethistoryList(filterSearch(search)); //this works well in all cases
                     }
                 }
-                onChange={      ///very confusing behaviour
+                onChange={      ///!!!!!!!!!!!!!!!very confusing behaviour!!!!!!!!!!!!!!!!!!!!!!!!!
                     (e)=>{
-                        setshowHistory(true);   //shows the search history panel
+                        // setshowHistory(true);   //shows the search history panel
                         setsearch(e.target.value);  //changes seach instantanously
                         console.log(search);
                         sethistoryList(filterSearch(search)); //this works well in all cases
