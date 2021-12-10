@@ -3,13 +3,13 @@ import MovieList from './components/MovieList';
 import Navbar from './components/Navbar';
 import MoviePanel from './components/MoviePanel';
 
-const HomePage = () => {
-    const [Movies, setmovies] = useState([]);
+const HomePage = (props) => {
+    // const [Movies, setmovies] = useState([]);
     const [searchValue, setSearchValue] = useState('');
-    const [selectedMovie, setselectedMovie] = useState();
-    const [favorite, setfavorite] = useState([]);
-    const [isPending, setisPending] = useState(true);
-    const [searchHistory, setsearchHistory] = useState([]);
+    // const [selectedMovie, setselectedMovie] = useState();
+    // const [favorite, setfavorite] = useState([]);
+    // const [isPending, setisPending] = useState(true);
+    // const [searchHistory, setsearchHistory] = useState([]);
     
     const random_url = [
         'http://www.omdbapi.com/?t=game+of+thrones&apikey=4c04f3d8',
@@ -33,88 +33,54 @@ const HomePage = () => {
           const response = await fetch(url);
           const responseJSON = await response.json();
           if(responseJSON.Search){
-            setmovies(responseJSON.Search);
-            setisPending(false);
+            props.setmovies(responseJSON.Search);
+            props.setisPending(false);
             return;
           }
         }
         else{
           let temp_movies = [];
-    
-    
-            for(let i=0; i<random_url.length; i++){
-              const response = await fetch(random_url[i]);
-              const responseJSON = await response.json();
-              temp_movies.push(responseJSON);
-            }
-          setmovies(temp_movies);
-          setisPending(false);
+          for(let i=0; i<random_url.length; i++){
+            const response = await fetch(random_url[i]);
+            const responseJSON = await response.json();
+            temp_movies.push(responseJSON);
+          }
+          props.setmovies(temp_movies);
+          props.setisPending(false);
           return;
         }
-    }
-    
-    const HandleClick_MovieList = async function(movie){
-        let title=String(movie.Title).replaceAll(' ','+');
-        const url = `http://www.omdbapi.com/?t=${title}&apikey=4c04f3d8`;
-        const response = await fetch(url);
-        const responseJSON = await response.json();
-        // console.log(responseJSON);
-        if(responseJSON){
-            setselectedMovie(responseJSON);
-
-            if(!searchHistory.includes(responseJSON.Title)){
-                setsearchHistory([...searchHistory, responseJSON.Title]);
-            }
-            return;
-        }
-    }
-    
-    const HandleClick_favorite = function(movie, req){
-        if(req==='add'){
-            console.log('adding to favorite');
-            if( !favorite.find((val)=>{return val['imdbID']===movie['imdbID'];})){
-            const newFavorites = [...favorite, movie];
-            setfavorite(newFavorites);
-            }
-        }
-        else if(req==='del'){
-            // console.log('delete');
-            const newFavorites = favorite.filter((val)=>val['imdbID']!==movie['imdbID'])
-            setfavorite(newFavorites);
-        }
-        
     }
 
     useEffect(
     function(){getMovieRequest(searchValue);}
     ,[searchValue]);
-    
 
     return ( 
       <div className="home-page">
-        <div className={selectedMovie?"main-page-side-panel":"main-page"}>
+        <div className={props.selectedMovie?"main-page-side-panel":"main-page"}>
           <Navbar
-            searchHistory={searchHistory}
-            setsearchHistory={setsearchHistory}
+            haveSearchBox={true}
+            searchHistory={props.searchHistory}
+            setsearchHistory={props.setsearchHistory}
             searchValue={searchValue}
             setSearchValue={setSearchValue}
           />
 
-          { Movies &&
+          { props.movies &&
             <MovieList 
-              isPending={isPending} 
-              movies={Movies} 
-              favorite={favorite} 
-              HandleClick_favorite={HandleClick_favorite} 
-              HandleClick_MovieList={HandleClick_MovieList}
+              isPending={props.isPending} 
+              movies={props.movies} 
+              favorite={props.favorite} 
+              HandleClick_favorite={props.HandleClick_favorite} 
+              HandleClick_MovieList={props.HandleClick_MovieList}
             />
           }
           <br/>
-          {favorite && <MovieList isPending={isPending} heading={"Favorites"} movies={favorite} favorite={favorite} HandleClick_favorite={HandleClick_favorite} HandleClick_MovieList={HandleClick_MovieList} />  }
+          {props.favorite && <MovieList isPending={props.isPending} heading={"Favorites"} favorite={props.favorite}  movies={props.favorite}  HandleClick_favorite={props.HandleClick_favorite} HandleClick_MovieList={props.HandleClick_MovieList} />  }
       
         </div>
       
-        {selectedMovie && <MoviePanel selectedMovie={selectedMovie} setselectedMovie={setselectedMovie}/>}
+        {props.selectedMovie && <MoviePanel selectedMovie={props.selectedMovie} setselectedMovie={props.setselectedMovie}/>}
       </div>
     );
 }

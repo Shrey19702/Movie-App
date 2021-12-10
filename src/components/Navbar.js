@@ -34,16 +34,20 @@ const Navbar = (props) => {
     return (
         <div className="Navbar" >
             <div onClick={()=>props.setSearchValue('')} >LOGO</div>
-            <SearchBox 
-                searchHistory={props.searchHistory}
-                setsearchHistory={props.setsearchHistory}
 
-                // showHistory={props.showHistory}
-                // setshowHistory={props.setshowHistory}
-                
-                searchValue={props.searchValue}
-                setSearchValue={props.setSearchValue}
-            />
+            {
+                props.haveSearchBox &&
+                    <SearchBox 
+                    searchHistory={props.searchHistory}
+                    setsearchHistory={props.setsearchHistory}
+
+                    // showHistory={props.showHistory}
+                    // setshowHistory={props.setshowHistory}
+                    
+                    searchValue={props.searchValue}
+                    setSearchValue={props.setSearchValue}
+                />
+            }
 
             <div className="nav-links" onClick={handleClick}>
                 {

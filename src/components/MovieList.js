@@ -38,7 +38,7 @@ const MovieList = (props) => {
 
     return ( 
         <>
-            {(props.heading && props.favorite.length!==0) ?<div className="movie-list-heading"> <i className={"fas fa-star favorite-heading"}></i> {props.heading}</div>:""}
+            {(props.heading && props.movies.length!==0) ?<div className="movie-list-heading"> <i className={"fas fa-star favorite-heading"}></i> {props.heading}</div>:""}
 
             <div className="movie-list" >
                 {
