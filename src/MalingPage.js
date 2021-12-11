@@ -9,7 +9,7 @@ const Mailing = (props) => {
     const [message, setmessage] = useState(''); 
     let html_list='<ul>';
     for(let i=0; i<props.favorite.length; i++){
-        html_list+= `<li>${i+1}. ${props.favorite[i].Title} </li>`;
+        html_list+= `<li>${props.favorite[i].Title} </li>`;
     }
     html_list+= '</ul>';
 
@@ -68,6 +68,7 @@ const Mailing = (props) => {
             <br/>
             {props.favorite && 
                 <MovieList 
+                    align_center={true}
                     isPending={props.isPending}
                     heading={"Favorites"}
                     movies={props.favorite} 

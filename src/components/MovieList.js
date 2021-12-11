@@ -1,4 +1,5 @@
 import Slider from "react-slick";
+import no_poster from "../assets/images/no_poster.png"
 
 const MovieList = (props) => {
 
@@ -10,23 +11,23 @@ const MovieList = (props) => {
         dots: true,
         infinite: false,
         speed: 500,
-        slidesToShow: 3,
+        slidesToShow: 4,
         slidesToScroll: 1,
         initialSlide: 0,
         responsive: [
           {
-            breakpoint: 1465,
+            breakpoint: 950,
             settings: {
-              slidesToShow: 2,
+              slidesToShow: 3,
               slidesToScroll: 1,
               infinite: false,
               dots: true
             }
           },
           {
-            breakpoint: 993,
+            breakpoint: 500,
             settings: {
-              slidesToShow: 1,
+              slidesToShow: 2,
               slidesToScroll: 1,
             //   initialSlide: 2,
               infinite: false,
@@ -37,22 +38,33 @@ const MovieList = (props) => {
       };
 
     return ( 
-        <>
-            {(props.heading && props.movies.length!==0) ?<div className="movie-list-heading"> <i className={"fas fa-star favorite-heading"}></i> {props.heading}</div>:""}
+        <div className={(props.align_center?"align-center ":"") +"movie-list-container"}>
+            {
+                (props.movies.length!==0) 
+                &&
+                (<div className="movie-list-heading">
+                    {props.heading==="Favorites" && <i className={"fas fa-star favorite-heading"}></i>}
+                    {props.heading}
+                </div>)
+            }
 
             <div className="movie-list" >
                 {
-                    props.isPending?
-                    (!props.heading && (<div className="loading"><div className="loading-anim"></div> Loading...</div>))
+                    props.isPending
+                    ?
+                    (props.heading!=="Favorites" && (<div className="loading"><div className="loading-anim"></div> Loading...</div>))
                     :
-                    (<Slider {...settings}>
+                    ((props.movies.length===0 && props.heading!=="Favorites" )?
+                        <div className="bad-search"><i class="fas fa-frown-open"></i> SORRY, Couldn't find anything for "{props.searchValue}"</div>
+                    :
+                    <Slider {...settings}>
                         {props.movies.map((movie, index)=>(
                             <div key={index}>
                                 <div 
                                     className="movie-element" 
                                     onClick={()=>{props.HandleClick_MovieList(movie)}}
                                 >
-                                    <img src={movie.Poster} alt="movie" />
+                                    <img src={movie.Poster!=='N/A'?movie.Poster: no_poster} alt="movie Not Found"/>
                                     
                                     <div className="movie-element-tag">
                                         <span className="movie-element-text-box">
@@ -73,7 +85,7 @@ const MovieList = (props) => {
                     </Slider>)
                 }
             </div> 
-        </>
+        </div>
     );
 }
  

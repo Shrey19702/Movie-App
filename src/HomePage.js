@@ -4,12 +4,7 @@ import Navbar from './components/Navbar';
 import MoviePanel from './components/MoviePanel';
 
 const HomePage = (props) => {
-    // const [Movies, setmovies] = useState([]);
     const [searchValue, setSearchValue] = useState('');
-    // const [selectedMovie, setselectedMovie] = useState();
-    // const [favorite, setfavorite] = useState([]);
-    // const [isPending, setisPending] = useState(true);
-    // const [searchHistory, setsearchHistory] = useState([]);
     
     const random_url = [
         'http://www.omdbapi.com/?t=game+of+thrones&apikey=4c04f3d8',
@@ -37,6 +32,10 @@ const HomePage = (props) => {
             props.setisPending(false);
             return;
           }
+          else if(responseJSON.Response==="False"){
+            console.log('no movie found');
+            props.setmovies([]);
+          }
         }
         else{
           let temp_movies = [];
@@ -57,7 +56,7 @@ const HomePage = (props) => {
 
     return ( 
       <div className="home-page">
-        <div className={props.selectedMovie?"main-page-side-panel":"main-page"}>
+        <div className= {"content "+(props.selectedMovie?"main-page-side-panel":"main-page")}>
           <Navbar
             haveSearchBox={true}
             searchHistory={props.searchHistory}
@@ -66,17 +65,27 @@ const HomePage = (props) => {
             setSearchValue={setSearchValue}
           />
 
-          { props.movies &&
-            <MovieList 
-              isPending={props.isPending} 
-              movies={props.movies} 
-              favorite={props.favorite} 
+          <MovieList 
+            isPending={props.isPending} 
+            heading={"Movies"}
+            movies={props.movies} 
+            favorite={props.favorite} 
+            HandleClick_favorite={props.HandleClick_favorite} 
+            HandleClick_MovieList={props.HandleClick_MovieList}
+            searchValue={searchValue}
+          />
+
+          <br/>
+          {props.favorite && 
+            <MovieList
+              isPending={props.isPending}
+              heading={"Favorites"} 
+              movies={props.favorite}  
+              favorite={props.favorite}  
               HandleClick_favorite={props.HandleClick_favorite} 
               HandleClick_MovieList={props.HandleClick_MovieList}
             />
           }
-          <br/>
-          {props.favorite && <MovieList isPending={props.isPending} heading={"Favorites"} favorite={props.favorite}  movies={props.favorite}  HandleClick_favorite={props.HandleClick_favorite} HandleClick_MovieList={props.HandleClick_MovieList} />  }
       
         </div>
       

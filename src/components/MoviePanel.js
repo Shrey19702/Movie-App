@@ -1,3 +1,4 @@
+import no_poster from "../assets/images/no_poster.png"
 const MoviePanel = ({selectedMovie, setselectedMovie}) => {
 
 
@@ -5,7 +6,7 @@ const MoviePanel = ({selectedMovie, setselectedMovie}) => {
         <div className="side-panel">
             <div className="selected-movie-heading">
                 <button className="side-panel-close-button" onClick={()=>{setselectedMovie(null)}}><span className="font-weight-1000">X</span></button>
-                <img className="movie-poster" src={selectedMovie.Poster} alt="movie" />
+                <img className="movie-poster" src={selectedMovie.Poster!=='N/A'?selectedMovie.Poster:no_poster} alt="movie" />
                 <h3>{selectedMovie.Title}</h3>
                 <i class="fas fa-sort-down"></i>
             </div>
