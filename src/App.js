@@ -12,7 +12,7 @@ function App() {
 
   const HandleClick_MovieList = async function(movie){
     let title=String(movie.Title).replaceAll(' ','+');
-    const url = `http://www.omdbapi.com/?t=${title}&apikey=4c04f3d8`;
+    const url = `https://www.omdbapi.com/?t=${title}&apikey=4c04f3d8`;
     const response = await fetch(url);
     const responseJSON = await response.json();
     // console.log(responseJSON);
