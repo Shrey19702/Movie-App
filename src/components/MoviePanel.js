@@ -8,7 +8,7 @@ const MoviePanel = ({selectedMovie, setselectedMovie}) => {
                 <button className="side-panel-close-button" onClick={()=>{setselectedMovie(null)}}><span className="font-weight-1000">X</span></button>
                 <img className="movie-poster" src={selectedMovie.Poster!=='N/A'?selectedMovie.Poster:no_poster} alt="movie" />
                 <h3>{selectedMovie.Title}</h3>
-                <i class="fas fa-sort-down"></i>
+                <i className="fas fa-sort-down"></i>
             </div>
             <div className="selected-movie-content">
                 <h3><span className="font-weight-700">Released on:</span> {selectedMovie.Released}</h3>                

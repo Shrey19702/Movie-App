@@ -35,11 +35,6 @@ const SearchBox = (props) => {
         sethistoryList(newHistoryList);
     }
 
-    // useEffect(
-    //     function(){
-    //         sethistoryList(filterSearch(props.searchHistory,search));
-    //     }
-    // ,[search]);
 
     return ( 
         <div className="search-box">
@@ -50,7 +45,7 @@ const SearchBox = (props) => {
                         sethistoryList(filterSearch(search)); //this works well in all cases
                     }
                 }
-                onChange={      ///!!!!!!!!!!!!!!!very confusing behaviour!!!!!!!!!!!!!!!!!!!!!!!!!
+                onChange={
                     (e)=>{
                         // setshowHistory(true);   //shows the search history panel
                         setsearch(e.target.value);  //changes seach instantanously
@@ -77,7 +72,7 @@ const SearchBox = (props) => {
                 />)
             }
             
-            <button onClick={HandleClick} className="form-submit-search"><i class="fas fa-search"></i></button>
+            <button onClick={HandleClick} className="form-submit-search"><i className="fas fa-search"></i></button>
         </div>
      );
 }

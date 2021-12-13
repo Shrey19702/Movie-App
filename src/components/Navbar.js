@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import {Link} from 'react-router-dom';
 import SearchBox from "./SearchBox";
+import logo from "../assets/images/text1881.png"
 
 const Navbar = (props) => {
 
@@ -33,8 +34,7 @@ const Navbar = (props) => {
 
     return (
         <div className="Navbar" >
-            <div onClick={()=>props.setSearchValue('')} >LOGO</div>
-
+            <img className='logo' src={logo} onClick={()=>props.setSearchValue('')} />
             {
                 props.haveSearchBox &&
                     <SearchBox 

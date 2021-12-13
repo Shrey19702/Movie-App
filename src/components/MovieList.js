@@ -55,7 +55,7 @@ const MovieList = (props) => {
                     (props.heading!=="Favorites" && (<div className="loading"><div className="loading-anim"></div> Loading...</div>))
                     :
                     ((props.movies.length===0 && props.heading!=="Favorites" )?
-                        <div className="bad-search"><i class="fas fa-frown-open"></i> SORRY, Couldn't find anything for "{props.searchValue}"</div>
+                        <div className="bad-search"><i className="fas fa-frown-open"></i> SORRY, Couldn't find anything for "{props.searchValue}"</div>
                     :
                     <Slider {...settings}>
                         {props.movies.map((movie, index)=>(
@@ -73,7 +73,7 @@ const MovieList = (props) => {
                                             {
                                                 isFavorite(movie)
                                                 ?
-                                                <i onClick={()=>{props.HandleClick_favorite(movie,'del')}} class="fas fa-minus-circle is-favorite"></i>
+                                                <i onClick={()=>{props.HandleClick_favorite(movie,'del')}} className="fas fa-minus-circle is-favorite"></i>
                                                 :
                                                 <i  onClick={()=>{props.HandleClick_favorite(movie,'add')}} className={"fas fa-star add-favorite"}></i>
                                             }   

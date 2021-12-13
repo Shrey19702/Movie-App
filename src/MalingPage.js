@@ -27,7 +27,7 @@ const Mailing = (props) => {
     }
 
     return ( 
-        <>
+        <div className='mailing-page'>
             <Navbar haveSearchBox={false}/>
             <div className="contact-form-box">
                 <h1 className="contact-form-heading" >Mail yourself the list of Favorite Movies</h1>
@@ -77,7 +77,7 @@ const Mailing = (props) => {
                     HandleClick_MovieList={props.HandleClick_MovieList}
                 />
             }
-        </>
+        </div>
     );
 }
  
